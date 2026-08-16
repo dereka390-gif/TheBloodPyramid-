@@ -1,4 +1,5 @@
 const btn = document.querySelector('.menu-toggle');
+const closeBtn = document.querySelector('.menu-close');
 const nav = document.querySelector('.nav');
 const header = document.querySelector('.site-header');
 
@@ -17,6 +18,10 @@ if (btn && nav) {
     btn.setAttribute('aria-expanded', String(isOpen));
     document.body.classList.toggle('menu-open', isOpen);
   });
+}
+
+if (closeBtn) {
+  closeBtn.addEventListener('click', closeMenu);
 }
 
 document.querySelectorAll('.nav a').forEach(link => link.addEventListener('click', closeMenu));
