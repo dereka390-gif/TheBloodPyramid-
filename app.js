@@ -12,7 +12,8 @@ function closeMenu() {
 }
 
 if (btn && nav) {
-  btn.addEventListener('click', () => {
+  btn.addEventListener('click', event => {
+    event.stopPropagation();
     const isOpen = nav.classList.toggle('open');
     btn.classList.toggle('open', isOpen);
     btn.setAttribute('aria-expanded', String(isOpen));
@@ -25,6 +26,13 @@ if (closeBtn) {
 }
 
 document.querySelectorAll('.nav a').forEach(link => link.addEventListener('click', closeMenu));
+
+// Close the mobile menu whenever the user taps the visible webpage outside the menu panel.
+document.addEventListener('pointerdown', event => {
+  if (!nav || !nav.classList.contains('open')) return;
+  if (nav.contains(event.target) || (btn && btn.contains(event.target))) return;
+  closeMenu();
+});
 
 window.addEventListener('scroll', () => {
   if (header) header.classList.toggle('scrolled', window.scrollY > 24);
